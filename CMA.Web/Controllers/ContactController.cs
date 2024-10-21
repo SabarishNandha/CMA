@@ -83,9 +83,9 @@ namespace CMA.Controllers
         }
 
         [HttpPut("UpdateContact")]
-        public IActionResult UpdateContact(int id, [FromBody] ContactDto updatedContact)
+        public IActionResult UpdateContact([FromBody] ContactDto updatedContact)
         {
-            updatedContact.ContactId = id; // Ensure the ID matches
+            updatedContact.ContactId = updatedContact.ContactId; // Ensure the ID matches
             var contact = _contactRepository.UpdateContact(updatedContact);
 
             if (contact == null)

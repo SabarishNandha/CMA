@@ -26,7 +26,7 @@ namespace CMA.DAL
             // Paginate the results
             var result = contacts.Skip((page - 1) * pageSize).Take(pageSize);
             return (result, contacts.Count);
-            
+
         }
 
         public ContactDto GetContactById(int id)
@@ -40,7 +40,8 @@ namespace CMA.DAL
         {
             var contacts = ReadContactsFromFile();
             // Auto-increment the ContactId
-            contact.ContactId = contacts.Max(c => c.ContactId) + 1;
+            contact.ContactId = contacts.Count > 0 ? contacts.Max(c => c.ContactId) + 1 : 1;
+
 
             // Add the new contact to the list
             contacts.Add(contact);
@@ -58,6 +59,7 @@ namespace CMA.DAL
                 // Update the contact details
                 contact.FirstName = updatedContact.FirstName;
                 contact.LastName = updatedContact.LastName;
+                contact.Email = updatedContact.Email;
                 WriteContactsToFile(contacts);
             }
             return contact;
@@ -96,7 +98,7 @@ namespace CMA.DAL
             File.WriteAllText(_filePath, jsonData);
         }
 
-         
+
         public (string, DateTime, List<Claim>) GenerateJwtToken(string emailId)
         {
             var securityKey = Configuration["G9-JWT:SecretKey"];
@@ -123,6 +125,6 @@ namespace CMA.DAL
                 signingCredentials: credentials);
 
             return (new JwtSecurityTokenHandler().WriteToken(token), expiry, claims);
-        } 
+        }
     }
 }

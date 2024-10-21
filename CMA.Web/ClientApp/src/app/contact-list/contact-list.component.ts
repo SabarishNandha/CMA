@@ -33,7 +33,7 @@ export class ContactListComponent {
     this.loading = true;
     this.contactService.getContact(this.currentPage, this.pageSize).subscribe(
       (response: any) => {
-        const newContacts = response.contacts;
+        const newContacts = Array.isArray(response.contacts) ? response.contacts : [];
         this.contacts = [...this.contacts, ...newContacts];
         this.hasMoreContacts = newContacts.length === this.pageSize;
         this.currentPage++;
@@ -46,7 +46,9 @@ export class ContactListComponent {
     );
   }
 
+
   getContactListOnload() {
+    this.hasMoreContacts=true;
     this.selectedContactId = 0;
     this.currentPage = 1;
     this.contacts = [];
@@ -92,7 +94,7 @@ export class ContactListComponent {
   }
 
   onScroll() {
-    const element = this.scrollableContainer.nativeElement;
+    const element = this.scrollableContainer?.nativeElement;
     if (element.scrollHeight - element.scrollTop <= element.clientHeight + 100 && !this.loading) {
       this.loadMoreContacts();
     }

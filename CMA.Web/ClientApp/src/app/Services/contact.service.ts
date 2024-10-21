@@ -29,7 +29,7 @@ export class ContactService extends DataService {
     return this.put(updateContactURL, data);
   }
   DeleteContact(contactId: number) {
-    let deleteContactUrl = this.baseUrl + "contact/DeleteContact?contactId=" + contactId;
+    let deleteContactUrl = "contact/DeleteContact?id=" + contactId;
     return this.delete(deleteContactUrl);
   }
   validateUserAndGetToken(userCredential: any): Observable<any> {

@@ -72,7 +72,12 @@ export class CreateContactComponent implements OnInit {
     this.closeClick.emit(true);
   }
   resetForm() {
-    this.contactForm.reset();
+    this.contactForm.reset({
+      contactId: null,
+      email: '',
+      firstName: '',
+      lastName: ''
+    });
     this.selectedContactId = 0;
     this.isDeleteMode = false;
     this.submitted = false; // Reset submitted so validation errors are hidden until next save attempt
