@@ -28,7 +28,8 @@ This project demonstrates expertise in Angular and ASP.NET Core, featuring a use
   - `DELETE /Contact/DeleteContact`: Deletes a contact by ID.
 
 - **Custom Middleware**:
-  - **CookieAuthMiddleware**: Manages authorization tokens and provides detailed error responses (404, 401, 500).
+  - **Authorization Middleware**: Manages authorization tokens and provides detailed error responses (404, 401, 500).
+  - **Global Expection Middleware**:  It intercepts unhandled exceptions that occur during the processing of HTTP requests, allowing you to log the error, format a response, and potentially redirect the user or provide a user-friendly error message.
 
 ## Setup Instructions
 
