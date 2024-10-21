@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <button type="button" class="btn btn-sm btn-success float-start mb-4" (click)="createContact()">
+      Create Contact
+    </button>
+  </div>
+   <div class="col-md-12">
+     <div style="max-height: 400px; overflow-y: auto;" #scrollableContainer class="scrollable-container" (scroll)="onScroll()">
+       <table class="table table-light" aria-labelledby="tableLabel">
+         <thead>
+           <tr>
+             <th>Id</th>
+             <th>First Name</th>
+             <th>Last Name</th>
+             <th>Email</th>
+             <th>Edit</th>
+             <th>Delete</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let c of contacts">
+             <td>{{ c.contactId }}</td>
+             <td>{{ c.firstName }}</td>
+             <td>{{ c.lastName }}</td>
+             <td>{{ c.email }}</td>
+             <td>
+               <button type="button" class="btn btn-sm btn-primary" (click)="updateContact(c.contactId!)">
+                 Edit
+               </button>
+             </td>
+             <td>
+               <button type="button" class="btn btn-sm btn-danger" (click)="openDeleteContactModal(c.contactId!)">
+                 Delete
+               </button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+       <div *ngIf="loading" class="loading">Loading...</div>
+     </div>
+ </div>
+</div>
+
+
+
+
+
+<app-create-contact #contactComponent
+                    (saveClick)="getContactListOnload()"
+                    [selectedContactId]="selectedContactId"
+                    [isDeleteMode]="isDeleteMode"
+                    (closeClick)="resetModal()">
+</app-create-contact>
+
+<div bsModal
+     #deleteContactModal="bs-modal"
+     class="modal"
+     id="deleteContactModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="deleteContactModal"
+     aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Contact</h5>
+      </div>
+      <div class="modal-body">
+        <span>Are you sure you want to delete this record?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="deleteContact()">Yes</button>
+        <button type="button" class="btn btn-secondary btn-sm" (click)="closeDeleteModal()">No</button>
+      </div>
+    </div>
+  </div>
+</div>

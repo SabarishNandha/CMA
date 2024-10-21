@@ -1,0 +1,90 @@
+<div bsModal
+     #contactModal="bs-modal"
+     class="modal"
+     id="contactModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="contactModal"
+     aria-hidden="true">
+
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">
+          {{ selectedContactId! > 0 ? 'Update' : 'Create' }} Contact
+        </h4>
+        <button type="button"
+                class="btn-close"
+                data-dismiss="modal"
+                (click)="closeModal()">
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="contactForm">
+          <div class="form-group">
+            <label for="email">Email address <span class="text-danger">*</span></label>
+            <input type="email"
+                   class="form-control"
+                   id="emailId"
+                   placeholder="Enter email"
+                   formControlName="email"
+                   required>
+            <div *ngIf="contactForm.controls['email'].invalid && submitted" class="text-danger">
+              <small *ngIf="contactForm.controls['email'].hasError('required')">
+                Email is required.
+              </small>
+              <small *ngIf="contactForm.controls['email'].hasError('pattern')">
+                Please enter a valid email address.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">First Name <span class="text-danger">*</span></label>
+            <input type="text"
+                   class="form-control"
+                   id="firstNameId"
+                   placeholder="Enter First Name"
+                   formControlName="firstName"
+                   required>
+            <div *ngIf="contactForm.controls['firstName'].invalid && submitted" class="text-danger">
+              <small *ngIf="contactForm.controls['firstName'].hasError('required')">
+                First Name is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name <span class="text-danger">*</span></label>
+            <input type="text"
+                   class="form-control"
+                   id="lastNameId"
+                   placeholder="Enter Last Name"
+                   formControlName="lastName">
+            <div *ngIf="contactForm.controls['lastName'].invalid && submitted" class="text-danger">
+              <small *ngIf="contactForm.controls['lastName'].hasError('required')">
+                Last Name is required.
+              </small>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary btn-sm"
+                (click)="saveContactForm()">
+          Save
+        </button>
+        <button type="button"
+                class="btn btn-secondary btn-sm"
+                (click)="closeModal()">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
